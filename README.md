@@ -29,66 +29,60 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 ```
 
-2. Import Dataset
-python
-Copy code
+2. **Import Dataset**
+
 df = pd.read_csv(r'https://raw.githubusercontent.com/YBIFoundation/Dataset/main/Financial%20Market%20News.csv', encoding="ISO-8859-1")
-3. Data Overview
-python
-Copy code
+
+3. **Data Overview**
+
 df.head()  # Display the first few rows of the dataset
 df.info()  # Dataset information (columns, data types, missing values)
 df.shape  # Dataset shape (number of rows and columns)
 df.columns  # List of column names
-4. Feature Selection
-Combine the news columns into a single list of news articles for each row:
 
-python
-Copy code
+
+4.** Feature Selection**
+--Combine the news columns into a single list of news articles for each row:
 news = []
 for row in range(0, len(df.index)):
     news.append(' '.join(str(x) for x in df.iloc[row, 2:27]))
-5. Text Conversion to Bag of Words
-Convert the news articles into a bag-of-words representation:
 
-python
-Copy code
-cv = CountVectorizer(lowercase=True, ngram_range=(1, 1))
-X = cv.fit_transform(news)
-6. Train-Test Split
-Split the dataset into training and testing sets:
+
+5****. Text Conversion to Bag of Words****
+--Convert the news articles into a bag-of-words representation:
+--cv = CountVectorizer(lowercase=True, ngram_range=(1, 1))
+--X = cv.fit_transform(news)
+
+
+6. **Train-Test Split**
+--Split the dataset into training and testing sets:
 
 **python code**
-X_train, X_test, y_train, y_test = train_test_split(X, df['Label'], test_size=0.3, stratify=df['Label'], random_state=2529)
+--X_train, X_test, y_train, y_test = train_test_split(X, df['Label'], test_size=0.3, stratify=df['Label'], random_state=2529)
 
 7. Train Random Forest Classifier
-Train a Random Forest Classifier on the training data:
-
-**python CODE**
+--Train a Random Forest Classifier on the training data:
 rf = RandomForestClassifier(n_estimators=200)
 rf.fit(X_train, y_train)
 
 8. **Model Evaluation**
-Make predictions and evaluate the model:
-
-python code
+--Make predictions and evaluate the model:
 y_pred = rf.predict(X_test)
 
 # Confusion Matrix
-confusion_matrix(y_test, y_pred)
+--confusion_matrix(y_test, y_pred)
 
 # Classification Report
-print(classification_report(y_test, y_pred))
+--print(classification_report(y_test, y_pred))
 
 9. **Evaluation Metrics**
-Confusion Matrix:
+--Confusion Matrix:
 [[136  445]
  [170  480]]
 
 
 ## Classification Report:
-text
-Copy code
+
               precision    recall  f1-score   support
 
            0       0.44      0.23      0.31       581
