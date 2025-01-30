@@ -32,10 +32,6 @@ To run this project, install the required dependencies:
 - scikit-learn
 - matplotlib (optional for visualization)
 
-## Author
-**[Your Name]** - Data Science & AI Enthusiast
 
-## License
-This project is open-source and available for use under the [MIT License](LICENSE).
 
-EOL
+
